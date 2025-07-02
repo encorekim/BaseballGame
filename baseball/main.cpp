@@ -7,9 +7,14 @@
 
 using std::string;
 
-TEST(Baseball, WrongInput) {
+TEST(Baseball, ShortInputError) {
   BaseballGame game;
   EXPECT_THROW(game.guess(string("12")), std::length_error);
+}
+
+TEST(Baseball, WrongInputError) {
+  BaseballGame game;
+  EXPECT_THROW(game.guess(string("12a")), std::invalid_argument);
 }
 
 int main() {
