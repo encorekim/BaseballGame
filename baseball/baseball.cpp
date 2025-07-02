@@ -14,5 +14,9 @@ class BaseballGame {
         throw std::invalid_argument("Must be all numbers");
       }
     }
+    if (numbers[0] == numbers[1] || numbers[1] == numbers[2] ||
+        numbers[0] == numbers[2]) {
+      throw std::invalid_argument("Must not have duplicated numbers");
+    }
   }
 };

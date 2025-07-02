@@ -24,6 +24,8 @@ TEST_F(BaseballFixture, ShortInputError) { assertIllegalArgument("12"); }
 
 TEST_F(BaseballFixture, WrongInputError) { assertIllegalArgument("12a"); }
 
+TEST_F(BaseballFixture, DuplicatedInputError) { assertIllegalArgument("121"); }
+
 int main() {
   ::testing::InitGoogleTest();
   return RUN_ALL_TESTS();
