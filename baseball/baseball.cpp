@@ -5,7 +5,15 @@ using std::string;
 
 class BaseballGame {
  public:
-  void guess(const string& numbers) {
+  void guess(const string& numbers) { assertIllegalArgument(numbers); }
+
+ private:
+  bool isDuplicated(const std::string& numbers) {
+    return numbers[0] == numbers[1] || numbers[1] == numbers[2] ||
+           numbers[0] == numbers[2];
+  }
+
+  void assertIllegalArgument(const std::string& numbers) {
     if (numbers.length() != 3) {
       throw std::length_error("Must be three letters");
     }
@@ -14,8 +22,7 @@ class BaseballGame {
         throw std::invalid_argument("Must be all numbers");
       }
     }
-    if (numbers[0] == numbers[1] || numbers[1] == numbers[2] ||
-        numbers[0] == numbers[2]) {
+    if (isDuplicated(numbers)) {
       throw std::invalid_argument("Must not have duplicated numbers");
     }
   }
