@@ -9,7 +9,7 @@ using std::string;
 
 class BaseballFixture : public testing::Test {
  public:
-  BaseballGame game;
+  BaseballGame game{"123"};
   void assertIllegalArgument(string input) {
     try {
       game.guess(input);
@@ -25,6 +25,13 @@ TEST_F(BaseballFixture, ShortInputError) { assertIllegalArgument("12"); }
 TEST_F(BaseballFixture, WrongInputError) { assertIllegalArgument("12a"); }
 
 TEST_F(BaseballFixture, DuplicatedInputError) { assertIllegalArgument("121"); }
+
+TEST_F(BaseballFixture, Test123) {
+  GuessResult result = game.guess("123");
+  EXPECT_TRUE(result.solved);
+  EXPECT_EQ(3, result.strikes);
+  EXPECT_EQ(0, result.balls);
+}
 
 int main() {
   ::testing::InitGoogleTest();

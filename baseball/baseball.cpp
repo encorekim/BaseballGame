@@ -3,11 +3,25 @@
 
 using std::string;
 
+struct GuessResult {
+  bool solved;
+  int strikes;
+  int balls;
+};
+
 class BaseballGame {
  public:
-  void guess(const string& numbers) { assertIllegalArgument(numbers); }
+  explicit BaseballGame(const string& question) : question{question} {}
+  GuessResult guess(const string& numbers) { assertIllegalArgument(numbers);
+    if (numbers == question) {
+      return {true, 3, 0};
+    } else {
+      return {false, 0, 3};
+    }
+  }
 
  private:
+  string question = nullptr;
   bool isDuplicated(const std::string& numbers) {
     return numbers[0] == numbers[1] || numbers[1] == numbers[2] ||
            numbers[0] == numbers[2];
