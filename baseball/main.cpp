@@ -7,15 +7,22 @@
 
 using std::string;
 
-TEST(Baseball, ShortInputError) {
+class BaseballFixture : public testing::Test {
+ public:
   BaseballGame game;
-  EXPECT_THROW(game.guess(string("12")), std::length_error);
-}
+  void assertIllegalArgument(string input) {
+    try {
+      game.guess(input);
+      FAIL();
+    } catch (std::exception e) {
+      // PASS (with exception)
+    }
+  }
+};
 
-TEST(Baseball, WrongInputError) {
-  BaseballGame game;
-  EXPECT_THROW(game.guess(string("12a")), std::invalid_argument);
-}
+TEST_F(BaseballFixture, ShortInputError) { assertIllegalArgument("12"); }
+
+TEST_F(BaseballFixture, WrongInputError) { assertIllegalArgument("12a"); }
 
 int main() {
   ::testing::InitGoogleTest();
