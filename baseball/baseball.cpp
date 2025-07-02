@@ -12,12 +12,24 @@ struct GuessResult {
 class BaseballGame {
  public:
   explicit BaseballGame(const string& question) : question{question} {}
-  GuessResult guess(const string& numbers) { assertIllegalArgument(numbers);
+  GuessResult guess(const string& numbers) {
+    GuessResult result{false, 0, 0};
+    assertIllegalArgument(numbers);
     if (numbers == question) {
       return {true, 3, 0};
-    } else {
-      return {false, 0, 3};
     }
+    for (int i = 0; i < 3; i++){
+      char number = numbers[i];
+      if (number == question[0] || number == question[1] ||
+          number == question[2]) {
+        result.balls++;
+      }
+      if (number == question[i]) {
+        result.strikes++;
+        result.balls--;
+      }
+    }
+    return result;
   }
 
  private:
